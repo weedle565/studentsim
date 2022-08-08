@@ -5,6 +5,7 @@ import student_enrolment_system.classes.EducationUnit;
 import student_enrolment_system.people.Student;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 public class PrimarySchoolStudent extends Student {
 
@@ -13,8 +14,10 @@ public class PrimarySchoolStudent extends Student {
 
     }
 
-    public PrimarySchoolStudent(Student student) {
+    public PrimarySchoolStudent(Student student) throws IOException {
         super(student);
+
+        addClass(new Class());
     }
 
     @Override
@@ -45,7 +48,17 @@ public class PrimarySchoolStudent extends Student {
             return;
         }
 
-        float grade = (c.getT().getTeacherAbility() * getIntellect() + getFocus()) / getLaziness() * (modifier/100);
+        float grade = Math.abs((((c.getT().getTeacherAbility() + getIntellect()) + getFocus())) / getLaziness() * (modifier/100));
+
+        while(grade > 100){
+
+            modifier = R.nextFloat(0, 100);
+
+            grade = grade/modifier;
+
+        }
+
+   //     System.out.println("Student: " + getFullName() + " achieved the grade: " + grade + "!");
 
         super.getGrades().put(c.getName() + " " + size, (int)grade);
 
@@ -57,8 +70,9 @@ public class PrimarySchoolStudent extends Student {
         int failed = 0;
 
         if(getYear() != 6){
-            System.out.println("Student: " + getFullName() + " attempted to move up early! " + getYear());
-            return null;
+            increaseYear();
+            System.out.println("Student: " + getFullName() + " has moved up to year: " + getYear());
+            return this;
         }
 
         for(Class cl : getClasses()){
@@ -80,14 +94,31 @@ public class PrimarySchoolStudent extends Student {
             return null;
         }
 
-        System.out.println("Student: " + getFullName() + " is moving to high school!");
+        System.out.println("Student: " + getFullName() + " is moving to high schools.txt!");
+
+        this.increaseYear();
 
         return new HighSchoolStudent(this);
 
     }
 
+    private float getGrade(){
+
+        float grade = 0;
+
+        for(String key : getGrades().keySet()){
+
+            System.out.println(getGrades().get(key));
+
+            grade = getGrades().get(key);
+
+        }
+
+        return grade;
+    }
+
     @Override
-    public float calculateGrade(Class c) {
+    public boolean calculateGrade(Class c) {
 
         float grade = 0;
 
@@ -97,6 +128,13 @@ public class PrimarySchoolStudent extends Student {
 
         }
 
-        return grade;
+        return grade >= 50;
+    }
+
+    @Override
+    public String toString(){
+
+        return super.toString() + " " + String.format("%.2f", getGrade());
+
     }
 }

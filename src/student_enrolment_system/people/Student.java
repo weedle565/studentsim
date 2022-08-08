@@ -31,8 +31,8 @@ public abstract class Student extends People{
 
         classes = new HashSet<>();
 
-        intellect = R.nextFloat(0f, 100f);
-        laziness = R.nextFloat(0f, 100f);
+        intellect = R.nextFloat(0f, 25);
+        laziness = R.nextFloat(0f, 25);
         focus = R.nextFloat(0f, 100f);
 
         grades = new HashMap<>();
@@ -116,13 +116,8 @@ public abstract class Student extends People{
 
     public void increaseYear(){
 
-        if(this instanceof PreSchoolStudent){
-            changeType();
-        }
-
-        clearClasses();
-
         year++;
+
     }
 
     public abstract Student changeType();
@@ -141,7 +136,7 @@ public abstract class Student extends People{
 
     }
 
-    public abstract float calculateGrade(Class c);
+    public abstract boolean calculateGrade(Class c);
 
     public abstract void takeTest(Class c);
 
@@ -153,11 +148,6 @@ public abstract class Student extends People{
 
     @Override
     public String toString() {
-        return "Student: " +
-                "student number: " + getIdNumber() +
-                ", full name: '" + getFullName() +
-                ", year: '" + getYear() +
-                ", education unit: " + getEducationUnit() +
-                ", classes: " + getClasses();
+        return getFirstName() + " " + getLastName() + " (Age: " + getAge() + " Year: " + getYear() + ")";
     }
 }

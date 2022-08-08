@@ -17,11 +17,13 @@ public class Class {
     private String name;
     private final int passingGrade;
 
+    private final static int maxSize = 15;
+
     public Class() throws IOException {
 
         Random r = new Random();
 
-        name = FileLoader.getName("class");
+        name = FileLoader.getName("classes");
 
         t = new Teacher();
 
@@ -31,6 +33,12 @@ public class Class {
 
         passingGrade = r.nextInt(50,101);
 
+    }
+
+    public Class(String type) throws IOException{
+        this();
+
+        name = FileLoader.getName(type + ".txt");
     }
 
     public Teacher getT() {

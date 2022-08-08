@@ -1,6 +1,7 @@
 package student_enrolment_system.classes;
 
 import student_enrolment_system.FileLoader;
+import student_enrolment_system.classes.education_types.Cohort;
 import student_enrolment_system.people.Student;
 
 import java.io.IOException;
@@ -8,12 +9,12 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-public abstract class EducationUnit {
+public class EducationUnit {
 
     private String name;
     private int score;
 
-    private final Set<Student> students;
+    private final Set<Cohort> cohorts;
 
     public static final Random R = new Random();
 
@@ -22,7 +23,7 @@ public abstract class EducationUnit {
         name = FileLoader.getName("schools");
         score = R.nextInt(0, 100);
 
-        students = new HashSet<>();
+        cohorts = new HashSet<>();
     }
 
     public String getName() {
@@ -41,13 +42,32 @@ public abstract class EducationUnit {
         this.score = score;
     }
 
-    public Set<Student> getStudents() {
-        return students;
+    public Set<Cohort> getCohorts() {
+        return cohorts;
     }
 
-    public void addStudent(Student s){
+    public void addCohort(Cohort c){
 
-        students.add(s);
+        cohorts.add(c);
+    }
+
+    public Student getRandomStudent(){
+
+        int rand = R.nextInt(0, cohorts.size());
+
+        int i = 0;
+
+        for(Cohort c : cohorts){
+
+            if(i == rand) {
+                return c.getRandomStudent(R.nextInt(0, c.getSize()));
+            }
+
+            i++;
+        }
+
+        return null;
+
     }
 
     @Override

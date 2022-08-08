@@ -15,20 +15,31 @@ public class PreSchoolStudent extends Student {
     @Override
     public Student changeType() {
 
-        this.increaseYear();
-        System.out.println(getFullName() + " has left pre school!");
-        return new PrimarySchoolStudent(this);
+        increaseYear();
 
+        System.out.println(getFirstName() + " " + getLastName() + " has left pre school!");
+        try {
+            return new PrimarySchoolStudent(this);
+        } catch (Exception e){
+            e.printStackTrace();
+
+            throw new RuntimeException();
+        }
     }
 
     @Override
-    public float calculateGrade(Class s) {
-        return 0;
+    public boolean calculateGrade(Class s) {
+        return true;
     }
 
     //Unused as this type doesnt take tests
     @Override
     public void takeTest(Class c){
 
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " Pre School";
     }
 }

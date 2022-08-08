@@ -42,7 +42,7 @@ public class HighSchoolStudent extends Student {
     }
 
     @Override
-    public float calculateGrade(Class c) {
+    public boolean calculateGrade(Class c) {
         float grade = 0;
 
         for(int i = 1; i <= c.getAssignmentNum(); i++){
@@ -51,7 +51,7 @@ public class HighSchoolStudent extends Student {
 
         }
 
-        return grade;
+        return grade >= 50;
     }
 
     @Override

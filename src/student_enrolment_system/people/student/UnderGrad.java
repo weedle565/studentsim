@@ -10,7 +10,6 @@ public class UnderGrad extends Student {
 
     private String course;
 
-
     public UnderGrad(EducationUnit educationUnit) throws IOException {
         super(educationUnit);
     }
@@ -26,8 +25,8 @@ public class UnderGrad extends Student {
     }
 
     @Override
-    public float calculateGrade(Class c) {
-        return 0;
+    public boolean calculateGrade(Class c) {
+        return true;
     }
 
     @Override

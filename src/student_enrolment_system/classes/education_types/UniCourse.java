@@ -8,14 +8,21 @@ import java.util.Random;
 
 public class UniCourse extends Class {
 
-    private String name;
     private int years;
 
     public UniCourse() throws IOException {
+        super("courses");
 
         Random r = new Random();
 
-        name = FileLoader.getName("courses");
         years = r.nextInt(2, 6);
+    }
+
+    public int getYears() {
+        return years;
+    }
+
+    public void setYears(int years) {
+        this.years = years;
     }
 }

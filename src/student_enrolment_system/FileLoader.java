@@ -2,30 +2,37 @@ package student_enrolment_system;
 
 import java.io.*;
 import java.util.Random;
+import java.util.Scanner;
 
 public class FileLoader {
 
-    private static RandomAccessFile getFile(String name) throws FileNotFoundException {
+    private static File getFile(String name) {
 
-        return new RandomAccessFile(name + ".txt", "r");
+        return new File("src/files/" + name + ".txt");
     }
 
     public static String getName(String file) throws IOException {
 
-        RandomAccessFile p = getFile(file + ".txt");
+        String res = null;
 
-        final long fileSize = p.length();
+        File f = getFile(file);
 
         Random r = new Random();
-        int pos = r.nextInt(0, (int)fileSize);
 
-        p.seek(pos);
+        int n = 0;
 
-        String line = p.readLine();
+        for(Scanner s = new Scanner(f); s.hasNext(); ){
 
-        p.close();
+            ++n;
+            String line = s.nextLine();
+            if(r.nextInt(n) == 0){
+                res = line;
+            }
 
-        return line;
+        }
+
+        return res;
+
     }
 
 }

@@ -9,7 +9,7 @@ public class Teacher extends People {
     public Teacher() throws IOException {
         super();
 
-        teacherAbility = R.nextFloat(0f, 100f);
+        teacherAbility = R.nextFloat(0f, 50);
     }
 
     public float getTeacherAbility() {
